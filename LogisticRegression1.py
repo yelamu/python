@@ -39,6 +39,8 @@ def costFunction(theta, X, y):
     
     J = -1*(1/m)*(np.log(h).T.dot(y)+np.log(1-h).T.dot(1-y))
                
+    print('J:', J)
+    
     if np.isnan(J[0]):
         return(np.inf)
     return(J[0])
@@ -53,7 +55,7 @@ def gradient(theta, X, y):
 
     return(grad.flatten())
 
-def gradientDescent(X, y, theta=[[0],[0],[0]], alpha=0.003, num_iters=1500):
+def gradientDescent(X, y, theta=[[0],[0],[0]], alpha=0.00103145, num_iters=3000000):
     m = y.size
     J_history = np.zeros(num_iters)
     
@@ -76,7 +78,8 @@ print('Cost: \n', cost)
 print('Grad: \n', grad)
 print('========================================================')
 
-theta , Cost_J = gradientDescent(X, y, np.zeros(X.shape[1]))
+#theta , Cost_J = gradientDescent(X, y, np.zeros(X.shape[1]))
+theta , Cost_J = gradientDescent(X, y, np.array([-25.16131634,   0.2062316 ,   0.20147143]),num_iters=3000)
 print('theta: ',theta.ravel())
 print('========================================================')
 
@@ -84,4 +87,8 @@ res = minimize(costFunction, initial_theta, args=(X,y), method=None, jac=gradien
 print(res)
 
 
+plt.plot(Cost_J)
+plt.ylabel('Cost J')
+plt.xlabel('Iterations');
+plt.show()
 
