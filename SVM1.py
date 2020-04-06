@@ -30,5 +30,19 @@ print(mat.keys())
 # dict_keys(['__header__', '__version__', '__globals__', 'X', 'y'])
 X = mat['X']
 y = mat['y']
-plotData(X, y)
-plt.show()
+print("X:{}".format(X.shape))
+print("y:{}".format(y.shape))
+#plotData(X, y)
+#plt.show()
+
+models = [svm.SVC(C, kernel='linear') for C in [1, 100]]
+clfs = [model.fit(X, y.ravel()) for model in models]
+
+titles = ['SVM Decision Boundary with C = {} (Example Dataset 1'.format(C) for C in [1, 100]]
+for model,title in zip(clfs,titles):
+    plt.figure(figsize=(8,5))
+    plotData(X, y)
+    plotBoundary(model, X)
+    plt.title(title)
+    plt.show()
+
